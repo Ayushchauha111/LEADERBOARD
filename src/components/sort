@@ -1,0 +1,61 @@
+import React, { useState, useEffect } from 'react';
+const bands = [
+  {
+    userid: "user1",
+    marks: { prob1: 1, prob2: 2, prob3: 3, prob4: 4, prob5: 5 },
+    total: 80,
+  },
+  {
+    userid: "user2",
+    marks: { prob1: 5, prob2: 4, prob3: 3, prob4: 2, prob5: 1 },
+    total: 90,
+  },
+  {
+    userid: "user3",
+    marks: { prob1: 3, prob2: 1, prob3: 2, prob4: 5, prob5: 4 },
+    total: 70,
+  },
+];
+
+function App() {
+  const [data, setData] = useState([]);
+  const [sortType, setSortType] = useState('albums');
+
+  useEffect(() => {
+    const sortArray = type => {
+      const types = {
+        albums: 'total',
+        use:
+      };
+      const sortProperty = types[type];
+      const sorted = [...bands].sort((a, b) => b[sortProperty] - a[sortProperty]);
+      setData(sorted);
+    };
+
+    sortArray(sortType);
+  }, [sortType]);
+
+  return (
+    <div className="App">
+      <select onChange={(e) => setSortType(e.target.value)}>
+        <option value="total">Total</option>
+        <option value="userid">USERS</option>
+      </select>
+
+      {data.map(band => (
+        <div key={band.id} style={{ margin: '30px' }}>
+          <div>{`users: ${band.userid}`}</div>
+          <div>{`total: ${band.total}`}</div>
+          <div>{`prob1: ${band.marks.prob1}`}</div>
+          <div>{`prob2: ${band.marks.prob2}`}</div>
+          <div>{`prob3: ${band.marks.prob3}`}</div>
+          <div>{`prob4: ${band.marks.prob4}`}</div>
+          <div>{`prob5: ${band.marks.prob5}`}</div>
+         
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default App;
